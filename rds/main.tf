@@ -9,11 +9,13 @@ data "terraform_remote_state" "vpc" {
     }
   }
 }
+
 #Creates subnet group with private subnet 
 resource "aws_db_subnet_group" "default" {
   name       = "main"
   subnet_ids = data.terraform_remote_state.vpc.outputs.private_subnets
 }
+
 #Creates RDS instance
 resource "aws_db_instance" "default" {
   allocated_storage    = 10
